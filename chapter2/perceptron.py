@@ -15,7 +15,15 @@ class Perceptron(object):
         for _ in range(self.n_iter):
             errors = 0
             for xi, target in zip(X, y):
-                update = self.eta * (target - self.predict(xi))
+                print(xi)
+                print(self.w_[1:])
+                print(self.w_[0])
+                n = self.net_input(xi)
+                print(n)
+                p = self.predict(xi)
+                print(p)
+                update = self.eta * (target - p)
+                print(update)
                 self.w_[1:] += update * xi
                 self.w_[0] += update
                 errors += int(update != 0.0)
@@ -23,7 +31,7 @@ class Perceptron(object):
         return self
 
     def net_input(self, X):
-         return np.dot(X, self.w_[1:]) + self.w_[0]
+        return np.dot(X, self.w_[1:]) + self.w_[0]
 
     def predict(self, X):
         return np.where(self.net_input(X) >= 0.0, 1, -1)
